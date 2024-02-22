@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  web:
+    image: ncportfolio:latest
+    command: python run.py flask run 0.0.0.0:5000
+    volumes:
+      - ./app:/flaskr
+    ports:
+      - 5000:5000
+    environment:
+      - DB_NAME={DB_NAME}
+      - DB_USER={DB_USER}
+      - DB_PASSWORD={DB_PASSWORD}
+      - DB_HOST=pg
+      - DB_PORT=5432
+      - DATABASE=postgres
+    depends_on:
+      - pg
+  pg:
+    image: postgres:14.1-alpine3.15
+    restart: always 
+    environment: 
+        POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - "${PWD}/data/initdb/:/docker-entrypoint-initdb.d/"
+
+  pgadmin:
+    image: dpage/pgadmin4:6.4
+    restart: always
+    environment: 
+        PGADMIN_LISTEN_PORT: 5433
+        PGADMIN_DEFAULT_EMAIL: admin@example.com
+        PGADMIN_DEFAULT_PASSWORD: admin123
+        PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}
+        PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: ${PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED}
+        PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: ${PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED}
+    ports:
+      - "5433:5433"
+    depends_on:
+        - pg
+networks:
+    default:
+        name: nunet
+        external: "True"

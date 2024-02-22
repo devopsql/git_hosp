@@ -1,0 +1,49 @@
+.venv
+.DS_Store
+.vscode
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development settings
+venv/
+.env
+.flaskenv
+# Docker
+#docker-compose.yml
+.dockerignore
+
+# Logs and databases
+*.log
+*.db
+*.sqlite
+
+# Temporary files
+*.swp
+*~
+
+# Environment variables file
+.env
+
+# Ignore database connection files
+postgres-data/
+
+# VS Code settings
+.vscode/
+
+# Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# C extensions
+*.so
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
